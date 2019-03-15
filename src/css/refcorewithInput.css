@@ -1,0 +1,63 @@
+.ref-input-wrap{
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+}
+.ref-input-wrap-display{
+    cursor: not-allowed !important;
+    color: #a6a3a3;
+}
+.ref-input-wrap-icon-navmenu{
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgc3R5bGU9IndpZHRoOiAxZW07IGhlaWdodDogMWVtO3ZlcnRpY2FsLWFsaWduOiBtaWRkbGU7ZmlsbDogY3VycmVudENvbG9yO292ZXJmbG93OiBoaWRkZW47IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcC1pZD0iMjM1NSIgZGF0YS1zcG0tYW5jaG9yLWlkPSJhMzEzeC43NzgxMDY5LjE5OTg5MTA0MTkuaTMiPjxwYXRoIGQ9Ik0zNjIuNDc0NDk4IDYyNy4xMzMyMDRNNzMuNTkxMDY1IDI3OC4zOTI0OThjLTI5LjUyMDMzNyAwLTUzLjUzNzMzNC0yNC4wMTY5OTYtNTMuNTM3MzM0LTUzLjUzNjMxIDAtMjkuNTIwMzM3IDI0LjAxNjk5Ni01My41MzczMzQgNTMuNTM3MzM0LTUzLjUzNzMzNGw4NzYuODE2ODQ2IDBjMjkuNTIxMzYxIDAgNTMuNTM3MzM0IDI0LjAxNjk5NiA1My41MzczMzQgNTMuNTM3MzM0IDAgMjkuNTE5MzE0LTI0LjAxNTk3MyA1My41MzYzMS01My41MzczMzQgNTMuNTM2MzFMNzMuNTkxMDY1IDI3OC4zOTI0OTh6TTczLjU5MTA2NSA1OTIuMzUwMDAzYy0yOS41MjAzMzcgMC01My41MzczMzQtMjQuMDE4MDItNTMuNTM3MzM0LTUzLjU0MTQyNyAwLTI5LjUyMDMzNyAyNC4wMTY5OTYtNTMuNTM3MzM0IDUzLjUzNzMzNC01My41MzczMzRsODc2LjgxNjg0NiAwYzI5LjUyMTM2MSAwIDUzLjUzNzMzNCAyNC4wMTY5OTYgNTMuNTM3MzM0IDUzLjUzNzMzNCAwIDI5LjUyMzQwNy0yNC4wMTU5NzMgNTMuNTQxNDI3LTUzLjUzNzMzNCA1My41NDE0MjdMNzMuNTkxMDY1IDU5Mi4zNTAwMDN6TTczLjU5MTA2NSA5MDMuNzk3MzM3Yy0yOS41MjAzMzcgMC01My41MzczMzQtMjQuMDE1OTczLTUzLjUzNzMzNC01My41MzczMzQgMC0yOS41MjEzNjEgMjQuMDE2OTk2LTUzLjUzNzMzNCA1My41MzczMzQtNTMuNTM3MzM0bDg3Ni44MTY4NDYgMGMyOS41MjEzNjEgMCA1My41MzczMzQgMjQuMDE1OTczIDUzLjUzNzMzNCA1My41MzczMzQgMCAyOS41MjEzNjEtMjQuMDE1OTczIDUzLjUzNzMzNC01My41MzczMzQgNTMuNTM3MzM0TDczLjU5MTA2NSA5MDMuNzk3MzM3eiIgcC1pZD0iMjM1NiI+PC9wYXRoPjwvc3ZnPg==)
+}
+.ref-input-wrap-filter-panel{
+    box-sizing: border-box;
+    background: white;
+    min-height: 32px;
+    z-index: 10;
+    overflow: auto;
+    border: 1px #ccc solid;
+    box-shadow: 0px 1px 2px #bebebe;
+    color: #424242;
+    cursor: pointer;
+    border-top: none;
+    position: absolute;
+    max-height: 300px
+}
+.ref-filter-item{
+    font-size: 13px;
+    color: #424242;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 12px;
+    cursor: pointer;
+    transition: background .3s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+   
+}
+.ref-filter-item:hover{
+    background: #BBDEFB;
+    cursor: pointer;
+}
+.ref-filter-empty{
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 12px;
+    color: #848484;
+}
+
+.ref-input-wrap .u-input-group.simple .u-input-group-btn {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 12px!important;
+    min-width: 20px;
+    height: 100%;
+}
+

@@ -1,0 +1,175 @@
+
+
+button, input, select, textarea {
+	margin: 0;
+}
+button, input, select {
+	overflow: visible;
+}
+button, input, select, textarea {
+	font: inherit;
+}
+*, :after, :before {
+	box-sizing: border-box;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.ref-core :global(.u-checkbox .u-checkbox-label) {
+  position: static;
+}
+
+.ref-core :global(.u-checkbox .u-checkbox-label) {
+  position: static;
+}
+
+.ref-core :global(.u-checkbox .u-checkbox-label:after),
+.ref-core :global(.u-checkbox .u-checkbox-label:before) {
+  top: 0px;
+  width: 16px;
+  height: 16px;
+}
+
+
+
+.ref-core .RefGrid :global(.u-checkbox .u-checkbox-label:after),
+.ref-core .RefGrid :global(.u-checkbox .u-checkbox-label:before) {
+  top: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.ref-core.u-modal .u-modal-body {
+  min-height: 150px;
+  padding: 15px;
+  background-color: #F7F9FB;
+}
+
+
+.ref-core .Ref-Button {
+  display: inline-block;
+  margin-top: 10px;
+  text-align: right;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  line-height: 45px;
+  left: 0;
+  background: rgba(255, 255, 255, .9);
+}
+
+.ref-core .Ref-Search .u-form-control-suffix {
+  position: absolute;
+  top: 0 !important;
+  width: 100%;
+}
+
+.ref-core .Ref-Search .u-form-control-suffix .uf-close-c {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+}
+
+.ref-core .Ref_title {
+  font-size: 20px
+}
+
+
+
+
+/*
+tab标签的样式 ---start
+*/
+
+.ref-core .TabWrap {
+  margin: 0;
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 0;
+  background-color: #f6f7f8;
+  height: 43px;
+  width: 100%;
+}
+
+
+/*
+tab标签的样式 ---end
+*/
+
+
+
+
+
+
+
+
+.ref-core.u-modal .u-modal-header .u-close .uf{
+  font-size: 12px;
+}
+
+
+
+
+.ref-core .c-error {
+  max-height: 300px;
+  min-height: 300px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.ref-core .c-error.hide {
+  display: none;
+}
+
+
+.u-checkbox {
+  width: auto
+}
+
+
+
+.RefGrid .u-checkbox .u-checkbox-label {
+  word-break: break-all;
+  height: 25px;
+  overflow: hidden;
+  line-height: 25px;
+}
+
+
+/* 下拉框z-index */
+.u-select-dropdown.u-select-dropdown--single.u-select-dropdown-placement-bottomLeft {
+  z-index: 1701;
+}
+
+.ref-core .u-modal.in .u-modal-dialog {
+  transform: translate(-50%, -50%) !important;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+
+.rc-calendar-picker {
+  z-index: 9999 !important
+}
+
+.u-tooltip {
+  z-index: 2000 !important;
+}
+
+
+.ref-core-modal .u-modal-body{
+  min-height: 419px;
+  text-align: center;
+}
+/* .ref-core-modal-footer .u-button{
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+} */
+.ref-core-modal-footer-hide{
+  display: none;
+}
