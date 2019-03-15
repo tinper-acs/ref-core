@@ -11,12 +11,12 @@ let entry = {
 };
 glob.sync(path.join(__dirname, '../src/js/refs/*.js*')).forEach(filepath => {
   let pathStr = filepath.split('/');
-  let entryName = pathStr.pop().toLocaleLowerCase().replace(/(.js)|(.jsx)$/, '');
+  let entryName = pathStr.pop().toString().replace(/(.js)|(.jsx)$/, '');
   entry[`refs/${entryName}`] = filepath;
 });
 glob.sync(path.join(__dirname, '../src/js/utils/*.js*')).forEach(filepath => {
   let pathStr = filepath.split('/');
-  let entryName = pathStr.pop().toLocaleLowerCase().replace(/(.js)|(.jsx)$/, '');
+  let entryName = pathStr.pop().toString().replace(/(.js)|(.jsx)$/, '');
   entry[`utils/${entryName}`] = filepath;
 });
 
