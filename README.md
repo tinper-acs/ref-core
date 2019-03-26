@@ -151,7 +151,7 @@ data | `array` | -- | tree数据|否
 nodeKeys | `function(value,index)` | 	return item.id || index;| <TreeNode/>节点的key | 否
 displayField |<code>string 或 function</code>|'{refname}' |记录中显示的键。<br/>当为字符串时则会根据`{}`包裹的增则匹配替换。<br/>如：`'人员姓名：{refname}，编号：{refcode}'`<br/>当为函数时则需自定义返回内容，参数为迭代已选择的记录。<br/>如：<br/>displayField: (record)=>  ${record.refname}-${record.refname}| 否
 
-###提供参数
+### 提供参数
 暂无
 
 ### RefCoreWithInput
