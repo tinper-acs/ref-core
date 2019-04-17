@@ -5,7 +5,7 @@
 ## 如何使用
 
 ```shell
-$ npm install ref-core@2.0.0 --save
+$ npm install ref-core --save
 
 ```
 ```javascript
