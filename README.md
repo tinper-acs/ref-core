@@ -2,10 +2,10 @@
 参照组件的通用功能提取
 
 
-## 代码演示
+## 如何使用
 
 ```shell
-$ npm install ref-core@0.3.2-beta --save
+$ npm install ref-core@2.0.0 --save
 
 ```
 ```javascript
@@ -15,12 +15,7 @@ import RefCoreTab from 'ref-core/lib/refs/RefCoreTab';
 import RefCoreSearch from 'ref-core/lib/refs/RefCoreSearch';
 import RefWithInput from 'ref-core/lib/refs/RefWithInput';
 import RefCoreGlobal from 'ref-core/lib/refs/RefCoreGlobal';
-import 'ref-core/lib/refs/RefCoreError.css';
-import 'ref-core/lib/refs/RefCoreButton.css';
-import 'ref-core/lib/refs/RefCoreTab.css';
-import 'ref-core/lib/refs/RefCoreSearch.css';
-import 'ref-core/lib/refs/RefWithInput.css';
-import 'ref-core/lib/refs/RefCoreGlobal.css';
+
 ```
 
 ## refcore提供以下通用组件
