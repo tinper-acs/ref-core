@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import Tree from 'bee-tree';
-// import 'bee-tree/build/Tree.css'
-import {Tree} from 'tinper-bee';
+import Tree from 'bee-tree';
+import 'bee-tree/build/Tree.css'
+// import {Tree} from 'tinper-bee';
 import { is } from 'immutable';
 
 import '../utils/polyfill_shim.js'

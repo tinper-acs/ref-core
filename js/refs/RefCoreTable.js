@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import Table  from 'bee-table';
-// import Checkbox from 'bee-checkbox';
-// import Pagination from 'bee-pagination';
-// import 'bee-table/build/Table.css'
-// import 'bee-checkbox/build/Checkbox.css'
-// import 'bee-pagination/build/Pagination.css'
-import {Table,Checkbox,Pagination} from 'tinper-bee';
+import Table  from 'bee-table';
+import Checkbox from 'bee-checkbox';
+import Pagination from 'bee-pagination';
+import 'bee-table/build/Table.css'
+import 'bee-checkbox/build/Checkbox.css'
+import 'bee-pagination/build/Pagination.css'
+// import {Table,Checkbox,Pagination} from 'tinper-bee';
 import '../../css/refcoretable.css'
 class RefCoreTable extends Component {
   //选择列表参数

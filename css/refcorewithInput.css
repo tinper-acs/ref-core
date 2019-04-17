@@ -2,6 +2,7 @@
     display: inline-block;
     vertical-align: middle;
     width: 200px;
+    position: relative;
 }
 .ref-input-wrap-display{
     cursor: not-allowed !important;
@@ -52,12 +53,13 @@
     color: #848484;
 }
 
-.ref-input-wrap .u-input-group.simple .u-input-group-btn {
+/* .ref-input-wrap .u-input-group.simple .u-input-group-btn {
     position: absolute;
     top: 0px;
     bottom: 0px;
     right: 12px!important;
     min-width: 20px;
     height: 100%;
-}
+    line-height: 24px;
+} */
 

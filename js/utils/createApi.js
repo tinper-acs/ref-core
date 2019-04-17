@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-const Listener = {
-    events: {},
-    on: function(type, handler){
+
+//监听者模式对象
+function Listenter() {
+    this.events = {};
+    this.on =  function(type, handler){
         if (typeof this.events[type] == "undefined"){
              this.events[type] = [];
         }
         this.events[type].push(handler);
-    }, 
-    fire: function(event){
+    };
+    this.fire = function(event){
          if (this.events[event] instanceof Array){
              var events = this.events[event];
              for (var i=0, len=events.length; i < len; i++){
                 events[i](event); 
             }
          }
-     }
+    }
+    return this;
 }
 
+//监听队列
+const Queue = {
+}
+
+//用于监听触发时间的 ReactJS 容器
 class Container extends Component {
     constructor(props) {
       super(props);
@@ -26,12 +34,16 @@ class Container extends Component {
     }
     componentDidMount() {
         let _this = this;
-        Listener.on("show", () => {
+        let { listener } = Queue[this.props.eventId];
+        if(!listener){
+            listener = Queue[this.props.eventId] = new Listenter();
+        }
+        listener.on("show", () => {
             _this.setState({ 
                 showModal: true  
             });
         });
-        Listener.on("hide", () => {
+        listener.on("hide", () => {
             _this.setState({ 
                 showModal: false  
             }, () => {
@@ -64,7 +76,7 @@ class Container extends Component {
 	}
     render() {
         let {children} = this.props;
-      return React.cloneElement(children, {
+        return React.cloneElement(children, {
             ...this.state,
 			onSave: this.onSaveModal,
 			onCancel: this.onCancelModal
@@ -92,31 +104,54 @@ function createRefInput(selector, component, props){
     };
 };
 
-function createRefModal({component, ...props}, callback) {
 
-    let div = document.createElement('div');
-    document.body.appendChild(div);
+
+
+function createRefModal({component, ...props}, callback) {
+    const modalContainer = document.createElement('div');
+    document.body.appendChild(modalContainer);
+    //随机生成队列ID
+    let eventId = `listener-${Math.random()}`;
+
+    Queue[eventId] = new Listenter();
     let param = {
-        dom: div,
         show: () => {
-            Listener.fire('show')
+            if(!Queue[eventId]){
+                return false;
+            }else{
+                Queue[eventId].fire('show');
+                return true
+            }
         },
         hide: () => {
-            Listener.fire('hide')
+            if(!Queue[eventId]){
+                return false;
+            }else{
+                Queue[eventId].fire('hide');
+                return true
+            }
         },
         destory: () => {
-            div.parentNode.removeChild(div);
+            if(!Queue[eventId]){
+                return false;
+            }else{
+                delete Queue[eventId];
+                return true
+            }
         }
     };
     ReactDOM.render(
         
         <Container
             {...props}
+
+            eventId = {eventId}
         >
         {
             React.cloneElement(component)
         }
-        </Container>,div, () => {
+        </Container>,
+        modalContainer, () => {
             if(typeof callback === 'function'){
                 callback(param)
             }

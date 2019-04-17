@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { post, get } from '../utils/request'
-// import InputGroup from 'bee-input-group';
-// import FormControl from 'bee-form-control';
-// import 'bee-form-control/build/FormControl.css'
-// import 'bee-input-group/build/InputGroup.css'
-import {InputGroup,FormControl} from 'tinper-bee';
+import InputGroup from 'bee-input-group';
+import FormControl from 'bee-form-control';
+import 'bee-form-control/build/FormControl.css'
+import 'bee-input-group/build/InputGroup.css'
+import 'bee-icon/build/Icon.css'
+// import {InputGroup,FormControl} from 'tinper-bee';
 import '../../css/refcorewithInput.css';
 import '../utils/polyfill_shim.js'
 const refValParse = (value) => {
@@ -306,9 +307,12 @@ class RefCoreWithInput extends Component {
 						onChange={this.onChangeFormControl}
 						onBlur={this.onBlurFormControl}
 					/>
-					<InputGroup.Button shape="border" 
+					{/* <InputGroup.Button shape="border" 
 						className={`ref-input-wrap-icon-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}
 					onClick={this.handleClick}>
+					</InputGroup.Button> */}
+						<InputGroup.Button shape="border" onClick={this.handleClick}>
+						<span className={`uf uf-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}> </span>
 					</InputGroup.Button>
 				</InputGroup>
 				{

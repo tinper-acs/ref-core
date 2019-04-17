@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
-import {Button} from 'tinper-bee';
+import Button from 'bee-button';
+import 'bee-button/build/Button.css'
+// import {Button} from 'tinper-bee';
+import PropTypes from 'prop-types';
 import '../../css/refcorebutton.css'
+// const propTypes = {
+//   buttons: PropTypes.object,
+//   ishasemptyBtn: PropTypes.bool,
+//   language: PropTypes.string,
+// }
+
+// const defaultProps = {
+//   buttons: {
+//     okText: "确认",
+//     cancelText: "取消",
+//     clearText: "清空已选",
+//   },
+//   ishasemptyBtn: true,
+//   language: 'zh_CN'
+// }
 function RefCoreButton(props) {
 	const { buttons, language, onClickBtn, emptyBut = true } = props;
 	let saveButton = '';
