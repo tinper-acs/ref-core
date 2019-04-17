@@ -18,6 +18,7 @@
   "files": [
     "package.json",
     "lib",
+    "css",
     "README.md"
   ],
   "author": "wangxgk@yonyou.com",
