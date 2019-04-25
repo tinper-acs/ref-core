@@ -65,10 +65,13 @@ class RefCoreSearch extends Component {
 					placeholder={placeholder}
 					type="text"
 				/>
-				<InputGroup.Button shape="border" 
+				{/* <InputGroup.Button shape="border" 
 					className="ref-core-search-icon-search"
 					onClick={this.onSearch.bind(this)}>
-				</InputGroup.Button>
+				</InputGroup.Button> */}
+				<InputGroup.Button shape="border" onClick={this.onSearch.bind(this)}>
+						<span className="uf uf-search"> </span>
+			    </InputGroup.Button>
 			</InputGroup>
 
 		);
