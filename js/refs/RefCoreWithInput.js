@@ -7,7 +7,7 @@ import 'bee-form-control/build/FormControl.css'
 import 'bee-input-group/build/InputGroup.css'
 import 'bee-icon/build/Icon.css'
 import { is } from 'immutable';
-import '../../css/refcorewithInput.css';
+import '../../css/refcorewithinput.css';
 import '../utils/polyfill_shim.js'
 const refValParse = (value) => {
     if(!value) return {refname: '', refpk: ''};
