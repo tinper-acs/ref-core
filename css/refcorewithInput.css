@@ -43,8 +43,11 @@
    
 }
 .ref-filter-item:hover{
-    background: #BBDEFB;
+    background: #ebecf0;
     cursor: pointer;
+}
+.ref-filter-item:active{
+    background: rgb(255, 247, 231);
 }
 .ref-filter-empty{
     text-align: center;
