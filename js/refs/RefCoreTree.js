@@ -20,11 +20,23 @@ export default class RefCoreTree extends Component {
 			checkedKey: []
 		};
 		this.children = [];
-		this.children = this.loop(props.data || []);
+		let { nodeKeys = nodeKeysFunc, displayField = "refname",lazyModal, onLoadData} = props;
+		let isDisplayFieldFunction = false,isLazyModal={};
+		if (typeof displayField === 'function') {
+			isDisplayFieldFunction = true;
+		}
+		if(lazyModal || typeof(onLoadData)==='function') isLazyModal= true;
+		this.children = this.loop(props.data || [],nodeKeys,isDisplayFieldFunction,isLazyModal);
 	}
 	componentWillReceiveProps(nextProps, nextState){
     if(!is(nextState, this.state) || !is(nextProps, this.props)){
-      this.children = this.loop(nextProps.data || []);
+			let { nodeKeys = nodeKeysFunc, displayField = "refname",lazyModal, onLoadData} = nextProps;
+			let isDisplayFieldFunction = false,isLazyModal={};
+			if (typeof displayField === 'function') {
+				isDisplayFieldFunction = true;
+			}
+			if(lazyModal || typeof(onLoadData)==='function') isLazyModal= true;
+      this.children = this.loop(nextProps.data || [],nodeKeys,isDisplayFieldFunction,isLazyModal);
       return true;
     }else{
       return false;
@@ -64,22 +76,67 @@ export default class RefCoreTree extends Component {
 		this.props.checkAllchildrenFun(v, id)
 	}
 
-	loop = datas => {
-			let { checkable, nodeKeys = nodeKeysFunc, displayField = "refname" } = this.props;
+	loop = (datas,nodeKeys,isDisplayFieldFunction,isLazyModal) => {
+			// let { nodeKeys = nodeKeysFunc, displayField = "refname" } = this.props;
 			return datas.map((item, i) => {
         let key = nodeKeys(item, i);
-        let text = '';
-        if (typeof displayField === 'function') {
-          text = displayField(item);
-        } else {
-          text = displayField.format(item);
-        }
+				let text = isDisplayFieldFunction?displayField(item): displayField.format(item);
+				let isLeafAttr ={};
+				if(isLazyModal) isLeafAttr.isLeaf = !!item.isLeaf
 				if (item.children && item.children.length) {
-					return <TreeNode className="ref-core-tree-node" key={key} title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} attr={item}  isLeaf={!!item.isLeaf} >{this.loop(item.children)}</TreeNode>;
+					return <TreeNode 
+					className="ref-core-tree-node" 
+					key={key} 
+					title={<div className="ref-core-tree-node-text">{text}</div>} 
+					// title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} 
+					attr={item}  
+					{...isLeafAttr}
+					>
+					{this.loop(item.children,nodeKeys,isDisplayFieldFunction,isLazyModal)}
+					</TreeNode>;
 				}
-				return <TreeNode className="ref-core-tree-node" key={key} title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} attr={item} isLeaf={!!item.isLeaf} />;
+				return <TreeNode 
+					className="ref-core-tree-node"
+					key={key} 
+					title={<div className="ref-core-tree-node-text">{text}</div>} 
+					attr={item} 
+					{...isLeafAttr}
+				/>;
 			});
 		}
+
+
+		// loop = datas => {
+		// 	let { nodeKeys = nodeKeysFunc, displayField = "refname" } = this.props;
+		// 	return datas.map((item, i) => {
+    //     let key = nodeKeys(item, i);
+    //     let text = '';
+    //     if (typeof displayField === 'function') {
+    //       text = displayField(item);
+    //     } else {
+    //       text = displayField.format(item);
+    //     }
+		// 		if (item.children && item.children.length) {
+		// 			return <TreeNode 
+		// 			className="ref-core-tree-node" 
+		// 			key={key} 
+		// 			title={<div className="ref-core-tree-node-text">{text}</div>} 
+		// 			// title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} 
+		// 			attr={item}  
+		// 			isLeaf={!!item.isLeaf} 
+		// 			>
+		// 			{this.loop(item.children)}
+		// 			</TreeNode>;
+		// 		}
+		// 		return <TreeNode 
+		// 			className="ref-core-tree-node"
+		// 			key={key} 
+		// 			title={<div className="ref-core-tree-node-text">{text}</div>} 
+		// 			attr={item} 
+		// 			isLeaf={!!item.isLeaf} 
+		// 		/>;
+		// 	});
+		// }
 	// looploadData = datas => {
 
 	// 	let { parentNodeDisableCheck } = this.props;
