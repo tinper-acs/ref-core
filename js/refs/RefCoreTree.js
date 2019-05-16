@@ -26,7 +26,7 @@ export default class RefCoreTree extends Component {
 			isDisplayFieldFunction = true;
 		}
 		if(lazyModal || typeof(onLoadData)==='function') isLazyModal= true;
-		this.children = this.loop(props.data || [],nodeKeys,isDisplayFieldFunction,isLazyModal);
+		this.children = this.loop(props.data || [],nodeKeys,displayField,isDisplayFieldFunction,isLazyModal);
 	}
 	componentWillReceiveProps(nextProps, nextState){
     if(!is(nextState, this.state) || !is(nextProps, this.props)){
@@ -36,7 +36,7 @@ export default class RefCoreTree extends Component {
 				isDisplayFieldFunction = true;
 			}
 			if(lazyModal || typeof(onLoadData)==='function') isLazyModal= true;
-      this.children = this.loop(nextProps.data || [],nodeKeys,isDisplayFieldFunction,isLazyModal);
+      this.children = this.loop(nextProps.data || [],nodeKeys,displayField,isDisplayFieldFunction,isLazyModal);
       return true;
     }else{
       return false;
@@ -76,7 +76,7 @@ export default class RefCoreTree extends Component {
 		this.props.checkAllchildrenFun(v, id)
 	}
 
-	loop = (datas,nodeKeys,isDisplayFieldFunction,isLazyModal) => {
+	loop = (datas,nodeKeys,displayField,isDisplayFieldFunction,isLazyModal) => {
 			// let { nodeKeys = nodeKeysFunc, displayField = "refname" } = this.props;
 			return datas.map((item, i) => {
         let key = nodeKeys(item, i);
@@ -92,7 +92,7 @@ export default class RefCoreTree extends Component {
 					attr={item}  
 					{...isLeafAttr}
 					>
-					{this.loop(item.children,nodeKeys,isDisplayFieldFunction,isLazyModal)}
+					{this.loop(item.children,nodeKeys,displayField,isDisplayFieldFunction,isLazyModal)}
 					</TreeNode>;
 				}
 				return <TreeNode 
