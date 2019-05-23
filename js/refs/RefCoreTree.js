@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tree from 'bee-tree';
-import 'bee-tree/build/Tree.css'
+// import 'bee-tree/build/Tree.css'
 // import {Tree} from 'tinper-bee';
 import { is } from 'immutable';
 
@@ -21,7 +21,7 @@ export default class RefCoreTree extends Component {
 		};
 		this.children = [];
 		let { nodeKeys = nodeKeysFunc, displayField = "refname",lazyModal, onLoadData} = props;
-		let isDisplayFieldFunction = false,isLazyModal={};
+		let isDisplayFieldFunction = false,isLazyModal=false;
 		if (typeof displayField === 'function') {
 			isDisplayFieldFunction = true;
 		}
@@ -31,7 +31,7 @@ export default class RefCoreTree extends Component {
 	componentWillReceiveProps(nextProps, nextState){
     if(!is(nextState, this.state) || !is(nextProps, this.props)){
 			let { nodeKeys = nodeKeysFunc, displayField = "refname",lazyModal, onLoadData} = nextProps;
-			let isDisplayFieldFunction = false,isLazyModal={};
+			let isDisplayFieldFunction = false,isLazyModal=false;
 			if (typeof displayField === 'function') {
 				isDisplayFieldFunction = true;
 			}
