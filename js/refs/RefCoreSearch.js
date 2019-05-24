@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import FormControl from 'bee-form-control';
 import InputGroup from 'bee-input-group';
-import 'bee-form-control/build/FormControl.css'
-import 'bee-input-group/build/InputGroup.css'
+// import 'bee-form-control/build/FormControl.css'
+// import 'bee-input-group/build/InputGroup.css'
 // import {FormControl,InputGroup} from 'tinper-bee';
 import '../../css/refcoresearch.css'
 class RefCoreSearch extends Component {

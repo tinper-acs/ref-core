@@ -34,7 +34,7 @@ display: none; }
 
 .collapse.in {
 display: block; }
-
+/* 
 .u-panel {
 line-height: 1.57142857;
 color: #757575;
@@ -127,4 +127,4 @@ margin-top: 5px; }
 border-bottom: 0;
 cursor: pointer; }
 .u-panel-group .u-panel-heading + .u-panel-collapse > .list-group, .u-panel-group .u-panel-group .u-panel-heading + .u-panel-collapse > .u-panel-body {
-border-top: 1px solid #ddd; }
+border-top: 1px solid #ddd; } */

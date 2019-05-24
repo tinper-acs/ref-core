@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'bee-button';
-import 'bee-button/build/Button.css'
+// import 'bee-button/build/Button.css'
 // import {Button} from 'tinper-bee';
 import PropTypes from 'prop-types';
 import '../../css/refcorebutton.css'

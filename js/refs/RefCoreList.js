@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Checkbox from 'bee-checkbox';
-import 'bee-checkbox/build/Checkbox.css'
+// import 'bee-checkbox/build/Checkbox.css'
 // import {Checkbox} from 'tinper-bee';
 import PropTypes from 'prop-types';
 import '../../css/refcorelist.css'

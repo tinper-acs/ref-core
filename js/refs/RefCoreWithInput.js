@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { post, get } from '../utils/request'
 import InputGroup from 'bee-input-group';
 import FormControl from 'bee-form-control';
-import 'bee-form-control/build/FormControl.css'
-import 'bee-input-group/build/InputGroup.css'
-import 'bee-icon/build/Icon.css'
+// import 'bee-form-control/build/FormControl.css'
+// import 'bee-input-group/build/InputGroup.css'
+// import 'bee-icon/build/Icon.css'
 import { is } from 'immutable';
 import '../../css/refcorewithinput.css';
 import '../utils/polyfill_shim.js'
@@ -311,8 +311,8 @@ class RefCoreWithInput extends Component {
 		this.setState({checkedArray})
 	}
 	render() {
-		var { savedShow, savedData, filterItems, filtering, filterText, checkedArray, showModal } = this.state;
-		const { displayField, valueField, form, rules, className, wrapClassName, disabled, style, placeholder } = this.props;
+		var { savedShow, savedData, filterItems, filtering, filterText, checkedArray, showModal} = this.state;
+		const { displayField, valueField, form, rules, className, wrapClassName, disabled, style, placeholder,theme='ref-red' } = this.props;
 		let childrenProps = Object.assign(Object.assign({}, this.props), {
 			showModal: showModal ,
 			checkedArray: checkedArray,
@@ -322,7 +322,7 @@ class RefCoreWithInput extends Component {
 		});
 		delete childrenProps.children;
 		return (
-			<div className={`ref-input-wrap ${wrapClassName}`}
+			<div className={`ref-input-wrap ${wrapClassName} ${theme}`}
 				style={{
 					...style
 				}}
