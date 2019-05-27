@@ -12,6 +12,9 @@ padding: 0px;
 margin: 0 0 0 18px;
 padding: 0px;
 }
+.ref-core-tree .uTreeSearchableFilter{
+  color: #f53c32;
+}
 
 .ref-core-tree-hide{
 display: none;
