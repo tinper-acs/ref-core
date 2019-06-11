@@ -25,8 +25,9 @@ const propTypes = {
   param: PropTypes.object,
   style: PropTypes.object,
   displayField: PropTypes.oneOfType([PropTypes.string,PropTypes.array]),//显示内容的键
+  inputDisplay: PropTypes.oneOfType([PropTypes.string,PropTypes.array]),//新的，input展示内容
   valueField: PropTypes.string,//真实 value 的键
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string,PropTypes.array]),
   wrapClassName: PropTypes.string,
   canClickGoOn: PropTypes.func,
   canInputGoOn: PropTypes.func,
@@ -50,6 +51,7 @@ const defaultProps = {
   },
   value: '',
   displayField: '{refname}',//显示内容的键
+  inputDisplay: '{refname}',
   valueField: 'refpk',//真实 value 的键
   //将 filterRefUrl 改为 mactchUrl
   filterUrl: '',
@@ -58,6 +60,8 @@ const defaultProps = {
   canInputGoOn: () => { return true; },
   filterData: [],
   filterUrlFunc: (value) => { },
+  showMenuIcon:true,
+  showArrow:false,
 }
 
 
@@ -79,23 +83,6 @@ const FilterItem = (props) => {
   );
 }
 
-// const getFilterData = (data, valueField, displayField) => {
-//   let filterItems = [], filterDataMap = {};
-//   data.forEach(item => {
-//     let values = item[valueField];
-//     //displayField 存在两种形态，通过字符匹配和函数匹配来获得展示的字段
-//     let names = '';
-//     if (typeof displayField === 'function') {
-//       names = displayField(item);
-//     } else {
-//       names = displayField.format(item);
-//     }
-//     filterItems.push(<FilterItem key={values} text={names} value={values} />);
-//     filterDataMap[values] = item;
-//   });
-//   return { filterItems, filterDataMap }
-// }
-
 class RefCoreWithInput extends Component {
   constructor(props) {
     super(props);
@@ -103,16 +90,12 @@ class RefCoreWithInput extends Component {
     this.state = {
       checkedArray: [],
       value:props.value,
-      // savedData: '',
-      // savedShow: valueMap.refname,
-      // filterText: '',
-      // filterItems: [],
       filterData: props.filterUrl ? [] : (props.filterData || []),
-      // filterDataMap: {},
-      // filtering: false,
-      showModal: false
+      showModal: false,
+      searchValue:props.searchValue,
     };
     this.childrenComponent = this.props.children;
+    this.init = true;
   }
 
   componentDidMount() {
@@ -120,8 +103,14 @@ class RefCoreWithInput extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    // let { filterItems, filterDataMap } = this.getNewFilterData;
-		if (nextProps.value !== this.state.value) {
+		if (nextProps.value !== this.props.value) {
+        if(Array.isArray(nextProps.value)){
+          //因为修改onChange的传参顺序，第一个是
+          this.setState({
+            filterData:!nextProps.filterUrl&& !is(nextprops.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
+          });
+          return false
+        };
 				let valueMap = refValParse(nextProps.value) || {}; 
 				let { valueField } = this.props;
 				let { checkedArray } = this.state;
@@ -132,36 +121,27 @@ class RefCoreWithInput extends Component {
           checkedArray: diffValue ? [] : checkedArray,
           value:diffValue? [] : checkedArray,
           savedShow: valueMap.refname,
-          filterData:!nextProps.filterUrl ? nextProps.filterData: this.state.filterData,
-          // filterItems:!nextProps.filterUrl ?filterItems : this.state.filterItems,
-          // filterDataMap:!nextProps.filterUrl ?filterDataMap:this.state.filterDataMap,
+            filterData:!nextProps.filterUrl&& !is(nextprops.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
 				}, ()=>{
 					this.handleChange(nextProps.value,this.state.checkedArray);
 				})
 		}else{
       this.setState({
-        filterData:!nextProps.filterUrl ? nextProps.filterData: this.state.filterData,
-        // filterItems:filterItems,
-        // filterDataMap:filterDataMap,
+            filterData:!nextProps.filterUrl&& !is(nextprops.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
       })
 			return false;
 		}
 		return true;
   }
   
-  // getNewFilterData= (nextProps) =>{
-  //   let  filterItems=[], filterDataMap = {};
-  //   if (!is(this.state.filterData, nextProps.filterData) && !this.props.filterUrl) {
-  //         return getFilterData(nextProps.filterData, valueField, displayField)
-  //   }
-  //   return { filterItems,filterDataMap};
-  // }
 
   handleChange = (values, record) => {
     const { onChange, value } = this.props;
     if (values === value) return;
     if (onChange) {
-      onChange(values, record);
+      // onChange(values, record);
+      onChange(record,values);
+
     }
   }
   onCancelModal = (p) => {
@@ -172,23 +152,22 @@ class RefCoreWithInput extends Component {
     })
     this.props.onCancel(p, this.refDom);
   }
+
   onSaveModal = (result) => {
 
-    const { displayField = '{refname}', valueField, onSave } = this.props;
+    const { inputDisplay = '{refname}', valueField, onSave } = this.props;
     let values = result.map(item => item[valueField]).join(',');
     let names = result.map(item => {
-      if (typeof displayField === 'function') {
-        return displayField(item);
+      if (typeof inputDisplay === 'function') {
+        return inputDisplay(item);
       } else {
-        return displayField.format(item);
+        return inputDisplay.format(item);
       }
     }).join(';');
 
     this.setState({
       checkedArray: result,
       value:result,
-      // savedData: values,
-      // savedShow: names,
       isClick: false,
       showModal: false
     }, () => {
@@ -215,51 +194,35 @@ class RefCoreWithInput extends Component {
   }
 
   onClickFilterItem = (status,id,item,selectedArray) => {
-    // e.stopPropagation();
-    // let { dataset = {} } = e.target;
-    // if (dataset.type !== 'filteritem') {
-    //   return;
-    // }
-    // let { filterDataMap } = this.state;
-    let { displayField = "{refname}", valueField, onSave } = this.props;
-    // let filterDataItem = filterDataMap[dataset.value];
-    // let savedData = filterDataItem[valueField];
-    // //displayField 存在两种形态，通过字符匹配和函数匹配来获得展示的字段
-    // let savedShow = '';
-    // if (typeof displayField === 'function') {
-    //   savedShow = displayField(filterDataItem);
-    // } else {
-    //   savedShow = displayField.format(filterDataItem);
-    // }
+    let { inputDisplay = "{refname}", valueField, onSave } = this.props;
     let ids = [];
     let names = selectedArray.map(item => {
-      if (typeof displayField === 'function') {
+      if (typeof inputDisplay === 'function') {
         ids.push(item[valueField])
-        return displayField(item);
+        return inputDisplay(item);
       } else {
         ids.push(item[valueField])
-        return displayField.format(item);
+        return inputDisplay.format(item);
       }
     }).join(';');
     this.setState({
-      // savedData, savedShow,
       filtering: false,
       value:selectedArray,
-      // checkedArray: [filterDataMap[dataset.value]]
       checkedArray:selectedArray,
     }, () => {
-      this.handleChange(JSON.stringify({
+      this.handleChange(
+        JSON.stringify({
         refname: names,
         refpk: ids.join(';'),
-        selectedArray
-      }));
-      // onSave([filterDataItem]);
+       
+      }), selectedArray);
       onSave(selectedArray);
     })
   }
   onDropdownVisibleChange = (open) =>{
-    if(open && !this.state.showModal){
-      this.onFilter(this.props.searchValue)
+    if(open && !this.state.showModal && this.init){
+      this.init = false;
+      this.onFilter(this.state.searchValue)
     }
   }
 
@@ -277,52 +240,31 @@ class RefCoreWithInput extends Component {
       content: content
     }).then((response) => {
       let { data } = response;
-      // let { filterItems, filterDataMap } = getFilterData(data, valueField, displayField);
       this.setState({
         filterData:data,
-        // filterItems,
-        // filterDataMap
       });
     })
   }
 
   onChangeFormControl = (value) => {
     if (!this.props.canInputGoOn(value)) return;
-    // this.setState({
-    //   filterText: value,
-    //   filtering: true
-    // });
-    this.onFilter(value);
+    this.setState({
+      searchValue:value
+    },()=>{
+      this.onFilter(value);
+    })
+   
   }
 
-  // onBlurFormControl = () => {
-  //   this.setState({
-  //     filterText: '',
-  //     filtering: Boolean(this.selectFilter)
-  //   });
-
-  // }
-
-  // onFocusFormControl = () => {
-  // }
-	/**
-	 * 控制模糊匹配时选择匹配项文本框失去焦点后 blur 先于 click 触发造成的选择未生效问题
-	 */
-  // onFilterMouseEnter = () => {
-  //   this.selectFilter = true;
-  // }
-  // onFilterMouseLeave = () => {
-  //   this.selectFilter = false;
-  // }
-  
   onMatchInitValue = (checkedArray) => {
     this.setState({ checkedArray })
   }
   render() {
-    var { savedShow, savedData, filterItems, filtering, filterText, checkedArray, showModal,filterData} = this.state;
-    const { displayField, valueField, form, rules, className, 
+    var {  checkedArray, showModal,filterData} = this.state;
+    const { displayField, valueField, className, 
        wrapClassName, disabled, style,searchValue,
-       placeholder, theme = 'ref-red',multiple,selectorDisplay=`{refname}`,
+       placeholder, theme = 'ref-red',multiple,inputDisplay=`{refname}`,
+       showMenuIcon=true,showArrow=false,
     } = this.props;
     let {value} = this.state;
     
@@ -349,7 +291,6 @@ class RefCoreWithInput extends Component {
             choiceTransitionName="rc-tree-select-selection__choice-zoom"
             showSearch
             allowClear
-            showMenuIcon 
             disabled={disabled}
             placeholder={placeholder}
             value={value}
@@ -362,8 +303,10 @@ class RefCoreWithInput extends Component {
             valueField={valueField}
             className={className}
             multiple={multiple}
-            inputDisplay={selectorDisplay}
+            inputDisplay={inputDisplay}
             onDropdownVisibleChange={this.onDropdownVisibleChange}
+            showMenuIcon={showMenuIcon}
+            showArrow={showArrow}
           >
 				</Select>
         {
