@@ -107,7 +107,7 @@ class RefCoreWithInput extends Component {
         if(Array.isArray(nextProps.value)){
           //因为修改onChange的传参顺序，第一个是
           this.setState({
-            filterData:!nextProps.filterUrl&& !is(nextprops.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
+            filterData:!nextProps.filterUrl&& !is(nextProps.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
           });
           return false
         };
@@ -121,13 +121,13 @@ class RefCoreWithInput extends Component {
           checkedArray: diffValue ? [] : checkedArray,
           value:diffValue? [] : checkedArray,
           savedShow: valueMap.refname,
-            filterData:!nextProps.filterUrl&& !is(nextprops.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
+            filterData:!nextProps.filterUrl&& !is(nextProps.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
 				}, ()=>{
 					this.handleChange(nextProps.value,this.state.checkedArray);
 				})
 		}else{
       this.setState({
-            filterData:!nextProps.filterUrl&& !is(nextprops.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
+            filterData:!nextProps.filterUrl&& !is(nextProps.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
       })
 			return false;
 		}
