@@ -119,7 +119,7 @@ class RefCoreWithInput extends Component {
         });
 				this.setState({
           checkedArray: diffValue ? [] : checkedArray,
-          value:diffValue? [] : checkedArray,
+          value:diffValue? [] : (checkedArray.length===0 && !!nextProps.value?nextProps.value:checkedArray),
           savedShow: valueMap.refname,
             filterData:!nextProps.filterUrl&& !is(nextProps.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
 				}, ()=>{
