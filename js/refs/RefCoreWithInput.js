@@ -101,12 +101,14 @@ class RefCoreWithInput extends Component {
   componentDidMount() {
     
   }
-  
+  //checkedArray与matchData不一致的时刻：1.初始化matchData但是checkedArray是在保存之后才与matchData同步
+  // componentWillReceiveProps，checkedArray：为[],为value
   componentWillReceiveProps(nextProps) {
 		if (nextProps.value !== this.props.value) {
         if(Array.isArray(nextProps.value)){
-          //因为修改onChange的传参顺序，第一个是
           this.setState({
+            checkedArray: nextProps.value,//注意这里是的checkedArray与matchData不一致
+            value:nextProps.value,
             filterData:!nextProps.filterUrl&& !is(nextProps.filterData,this.props.filterData)? nextProps.filterData: this.state.filterData,
           });
           return false
@@ -118,7 +120,7 @@ class RefCoreWithInput extends Component {
 					return !Boolean(~valueMap.refpk.indexOf(item[valueField]));
         });
 				this.setState({
-          checkedArray: diffValue ? [] : checkedArray,
+          checkedArray: diffValue ? [] : checkedArray,//注意这里是的checkedArray与matchData不一致
           // value:diffValue? [] : (checkedArray.length===0 && !!nextProps.value?nextProps.value:checkedArray),
           value:nextProps.value,
           savedShow: valueMap.refname,
