@@ -1,6 +1,6 @@
 {
   "name": "ref-core",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "参照基础包",
   "main": "lib/",
   "directories": {

@@ -45,7 +45,7 @@ const fetchTools = {
   options(method = 'get', options = {}) {
     return {
       method: method.toUpperCase(),
-      credentials: 'include',
+      // credentials: 'include',
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
