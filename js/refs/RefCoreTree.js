@@ -99,21 +99,25 @@ export default class RefCoreTree extends Component {
 				let isLeafAttr ={};
 				if(isLazyModal) isLeafAttr.isLeaf = !!item.isLeaf
 				if (item.children && item.children.length) {
-					return <TreeNode 
-					className="ref-core-tree-node" 
-					key={key} 
-					title={title} 
-					// title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} 
-					attr={item}  
-					{...isLeafAttr}
-					>
-					{this.loop(item.children,nodeKeys,displayField,isDisplayFieldFunction,isLazyModal,searchValue)}
-					</TreeNode>;
+					return (
+					<TreeNode 
+						className="ref-core-tree-node" 
+						key={key} 
+						title={title} 
+						// title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} 
+						attr={item} 
+						disabled={!!item[this.props.treeNodeDisabledKey]} 
+						{...isLeafAttr}
+						>
+						{this.loop(item.children,nodeKeys,displayField,isDisplayFieldFunction,isLazyModal,searchValue)}
+					</TreeNode>
+					);
 				}
 				return <TreeNode 
 					className="ref-core-tree-node"
 					key={key} 
 					title={title} 
+					disabled={!!item[this.props.treeNodeDisabledKey]} 
 					attr={item} 
 					{...isLeafAttr}
 				/>;
