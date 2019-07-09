@@ -222,11 +222,13 @@ class RefCoreWithInput extends Component {
       onSave(selectedArray);
     })
   }
-  onDropdownVisibleChange = (open) =>{
+  onDropdownVisibleChange = (open,documentClickClose) =>{
     if(open && !this.state.showModal && this.init){
       this.init = false;
       this.onFilter(this.state.searchValue)
     }
+    let {onDropdownVisibleChangeSelector} = this.props;
+    onDropdownVisibleChangeSelector && onDropdownVisibleChangeSelector(open,documentClickClose)
   }
 
   onFilter = (content) => {
@@ -267,8 +269,13 @@ class RefCoreWithInput extends Component {
     const { displayField, valueField, className, 
        wrapClassName, disabled, style,searchValue,
        placeholder, theme = 'ref-red',multiple,inputDisplay=`{refname}`,
-       showMenuIcon=true,showArrow=false,
+       showMenuIcon=true,showArrow=false,selectorOpen,
     } = this.props;
+    let selectorHasOpen = {}
+    if( Object.prototype.toString.call(selectorOpen) === "[object Boolean]"){
+      selectorHasOpen.open = selectorOpen
+    }
+   
     let {value} = this.state;
     
     let childrenProps = Object.assign(Object.assign({}, this.props), {
@@ -310,6 +317,8 @@ class RefCoreWithInput extends Component {
             onDropdownVisibleChange={this.onDropdownVisibleChange}
             showMenuIcon={showMenuIcon}
             showArrow={showArrow}
+            {...selectorHasOpen} //有可能是{}或者用户传入open
+           
           >
 				</Select>
         {
