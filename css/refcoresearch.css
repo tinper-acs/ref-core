@@ -2,7 +2,7 @@
   /* width: 100%; */
   width: 200px;
 }
-.ref-core-search-hide {
+.ref-core-search.ref-core-search-hide {
   display: none;
 }
 .ref-core-search .ref-core-search-input {
