@@ -3,6 +3,7 @@
     vertical-align: middle;
     width: 200px;
     position: relative;
+
 }
 .ref-input-wrap-display{
     cursor: not-allowed !important;
@@ -66,3 +67,10 @@
     line-height: 24px;
 } */
 
+/*多选的*/
+.ref-input-wrap .rc-tree-select-selection--multiple .rc-tree-select-selection__clear{
+    right:24px;
+}
+.ref-input-wrap .rc-tree-select-menu-icon{
+    right:4px;
+}
