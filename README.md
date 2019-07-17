@@ -145,7 +145,7 @@ data | `array` | -- | tree数据|否
 ~~checkable~~| `bool` | -- | ~~行数据选中有对号展示~~| 否
 nodeKeys | `function(value,index)` | 	return item.id || index;| <TreeNode/>节点的key | 否
 displayField |<code>string 或 function</code>|'{refname}' |记录中显示的内容的格式。<br/>当为字符串时则会根据`{}`包裹的增则匹配替换。<br/>如：`'人员姓名：{refname}，编号：{refcode}'`<br/>当为函数时则需自定义返回内容，参数为迭代已选择的记录。<br/>如：<br/>displayField: (record)=>  ${record.refname}-${record.refname}| 否
-
+treeNodeDisabledKey | `string` | '' | tree上带有treeNodeDisabledKey指定属性并且为true时该树节点不可选中 | 否
 ### 提供参数
 暂无
 
@@ -167,6 +167,14 @@ disabled|`bool`| false |禁用整个参照 | 否
 onChange|`function(values, record)`|--|value改变、快捷录入和保存时数据回调|否
 canClickGoOn|`function()`| ()=>{return true}|当点击文本框右侧弹出按钮时是否打开modal<br>适用于级联情况下当选择不全时的处理| 否 
 canInputGoOn|`function()`| ()=>{return true}|当点击文本框触发快捷录入时是否可以录入<br>适用于级联情况下当选择不全时的处理| 否 
+
+注意refcorewithinput在1.0.0版本以上新增的参数
+参数 | 类型 |默认值| 说明 | 必选
+---|---|--- | --- | ---
+inputDisplay |<code>string 或 function</code>|'{refname}' |记录中显示的内容的格式。<br/>当为字符串时则会根据`{}`包裹的增则匹配替换。<br/>如：`'人员姓名：{refname}，编号：{refcode}'`<br/>当为函数时则需自定义返回内容，参数为迭代已选择的记录。<br/>如：<br/>inputDisplay: (record)=>  ${record.refname}-${record.refname}，是input展示value| 否
+selectorOpen | `bool`| -- |控制下拉面板的展开或者关闭 | 否
+onDropdownVisibleChangeSelector | `function(open,documentClick)` | -- | 触发下拉面板状态变化时的回调函数，open=true、false，documentClick是object，{documentClick:true/false},表示触发下拉面板状态变化的动作是点击input框还是其他区域，前者true，后false。注意return false可以阻止下拉面板正常下一步操作。 | 否
+
 
 #### 提供的参数
 
