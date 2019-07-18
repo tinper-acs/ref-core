@@ -1,6 +1,6 @@
 {
   "name": "ref-core",
-  "version": "0.2.13",
+  "version": "1.0.17",
   "description": "参照基础包",
   "main": "lib/",
   "directories": {
@@ -35,6 +35,7 @@
     "bee-tree": "^2.0.7",
     "fetch-jsonp": "^1.1.3",
     "immutable": "^4.0.0-rc.12",
+    "menu-selector": "^1.0.3",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^8.1.0",
     "whatwg-fetch": "^3.0.0"
