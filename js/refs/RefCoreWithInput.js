@@ -312,7 +312,9 @@ class RefCoreWithInput extends Component {
 	}
 	render() {
 		var { savedShow, savedData, filterItems, filtering, filterText, checkedArray, showModal} = this.state;
-		const { displayField, valueField, form, rules, className, wrapClassName, disabled, style, placeholder,theme='ref-red' } = this.props;
+    const { displayField, valueField, form, rules, className, wrapClassName, 
+      disabled, style, placeholder,theme='ref-red' } = this.props;
+    let {menuIcon=<span className={`uf uf-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}> </span>} = this.props;
 		let childrenProps = Object.assign(Object.assign({}, this.props), {
 			showModal: showModal ,
 			checkedArray: checkedArray,
@@ -350,8 +352,8 @@ class RefCoreWithInput extends Component {
 						className={`ref-input-wrap-icon-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}
 					onClick={this.handleClick}>
 					</InputGroup.Button> */}
-						<InputGroup.Button shape="border" onClick={this.handleClick}>
-						<span className={`uf uf-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}> </span>
+					<InputGroup.Button shape="border" onClick={this.handleClick}>
+						{menuIcon}
 					</InputGroup.Button>
 				</InputGroup>
 				{
