@@ -269,9 +269,11 @@ class RefCoreWithInput extends Component {
     const { displayField, valueField, className, 
        wrapClassName, disabled, style,searchValue,
        placeholder, theme = 'ref-red',multiple,inputDisplay=`{refname}`,
-       showMenuIcon=true,showArrow=false,selectorOpen,
+       showMenuIcon=true,showArrow=false,selectorOpen,menuIcon,
     } = this.props;
     let selectorHasOpen = {}
+    let otherProps = {};
+    if(menuIcon) otherProps.menuIcon = menuIcon
     if( Object.prototype.toString.call(selectorOpen) === "[object Boolean]"){
       selectorHasOpen.open = selectorOpen
     }
@@ -318,7 +320,7 @@ class RefCoreWithInput extends Component {
             showMenuIcon={showMenuIcon}
             showArrow={showArrow}
             {...selectorHasOpen} //有可能是{}或者用户传入open
-           
+            {...otherProps}
           >
 				</Select>
         {
