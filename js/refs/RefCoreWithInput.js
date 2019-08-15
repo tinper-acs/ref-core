@@ -1,3 +1,7 @@
+/*
+ * @Date: 2019-08-10 15:29:39
+ * @LastEditTime: 2019-08-15 20:04:41
+ */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { post, get } from '../utils/request'
@@ -269,7 +273,7 @@ class RefCoreWithInput extends Component {
     const { displayField, valueField, className, 
        wrapClassName, disabled, style,searchValue,
        placeholder, theme = 'ref-red',multiple,inputDisplay=`{refname}`,
-       showMenuIcon=true,showArrow=false,selectorOpen,menuIcon,
+       showMenuIcon=true,showArrow=false,selectorOpen,menuIcon,dropdownDisabled=false,
     } = this.props;
     let selectorHasOpen = {}
     let otherProps = {};
@@ -319,6 +323,7 @@ class RefCoreWithInput extends Component {
             onDropdownVisibleChange={this.onDropdownVisibleChange}
             showMenuIcon={showMenuIcon}
             showArrow={showArrow}
+            dropdownDisabled={dropdownDisabled}
             {...selectorHasOpen} //有可能是{}或者用户传入open
             {...otherProps}
           >
