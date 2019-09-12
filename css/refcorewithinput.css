@@ -43,6 +43,9 @@
     white-space: nowrap;
    
 }
+.ref-filter-item-active{
+    background: #ebecf0;
+}
 .ref-filter-item:hover{
     background: #ebecf0;
     cursor: pointer;
@@ -66,7 +69,18 @@
     height: 100%;
     line-height: 24px;
 } */
+.ref-input-wrap .u-input-group.simple span.clear-icon.u-input-group-btn {
+    cursor: pointer;
+    right: 28px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity ease 0.3s;
 
+}
+.ref-input-wrap .u-input-group.simple:hover span.clear-icon.u-input-group-btn{
+    opacity: 1;
+    visibility: visible;
+}
 /*多选的*/
 .ref-input-wrap .rc-tree-select-selection--multiple .rc-tree-select-selection__clear{
     right:24px;
@@ -74,3 +88,51 @@
 .ref-input-wrap .rc-tree-select-menu-icon{
     right:4px;
 }
+
+.ref-input-wrap.ref-core-with-inupt{
+    position: relative;
+}
+.ref-input-wrap.ref-core-with-inupt .fake-select.u-select{
+    padding-right: 30px;
+    box-sizing: border-box;
+    border:none;
+    border-color: transparent;
+    border: none;
+    background: transparent;
+
+
+}
+.ref-input-wrap.ref-core-with-inupt .u-select-show-search.fake-select.u-select.u-select-disabled,
+.ref-input-wrap.ref-core-with-inupt .u-select-show-search.fake-select.u-select.u-select-enabled{
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+}
+.ref-input-wrap.ref-core-with-inupt .u-select-show-search.fake-select.u-select.u-select-disabled{
+    z-index: -1;
+}
+.ref-input-wrap.ref-core-with-inupt .fake-select .u-select-arrow{
+      display: none;
+  }
+.ref-input-wrap.ref-core-with-inupt .fake-select .u-select-search.u-select-search--inline{
+      background: transparent;
+      border-color:transparent;
+  }
+.ref-input-wrap.ref-core-with-inupt  .u-select .u-select-selection{
+        background: transparent;
+        border:none;
+        margin: 4px;
+        padding-left: 6px;
+        box-sizing: border-box;
+        line-height: 24px;
+        height: 24px;
+    }
+.ref-input-wrap.ref-core-with-inupt .u-select-selection-rendered{
+        line-height: 24px;
+    }
+.ref-input-wrap.ref-core-with-inupt .fake-select .u-select-selection:hover{
+        border-color: transparent;
+        box-shadow:none;
+        
+    }

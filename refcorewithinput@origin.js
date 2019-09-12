@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { post, get } from '../utils/request'
 import InputGroup from 'bee-input-group';
 import FormControl from 'bee-form-control';
-import Select from 'bee-select';
 // import 'bee-form-control/build/FormControl.css'
 // import 'bee-input-group/build/InputGroup.css'
 // import 'bee-icon/build/Icon.css'
 import { is } from 'immutable';
 import '../../css/refcorewithinput.css';
 import '../utils/polyfill_shim.js'
-const Option = Select.Option;
 const refValParse = (value) => {
     if(!value) return {refname: '', refpk: ''};
 
@@ -79,7 +77,7 @@ const FilterItem = (props) => {
 			}}
 			data-value={props.value}
 			data-type="filteritem"
-			data-rowindex = {props.rowindex}
+
 		>
 			{props.text}
 		</li>
@@ -97,7 +95,7 @@ const getFilterData = (data,valueField,displayField) =>{
 		} else {
 			names = displayField.format(item);
 		}
-		filterItems.push(<FilterItem key={values} rowindex ={index} text={names} value={values} />);
+		filterItems.push(<FilterItem key={values} text={names} value={values} />);
 		filterDataMap[values] = item;
 	});
 	return {filterItems,filterDataMap}
@@ -138,10 +136,10 @@ class RefCoreWithInput extends Component {
 					return !Boolean(~valueMap.refpk.indexOf(item[valueField]));
 				});
 				if(!is(this.state.filterData,nextProps.filterData)&&!filterUrl){
-					// let {filterItems,filterDataMap} = getFilterData(nextProps.filterData,valueField,displayField,this.key)
+					let {filterItems,filterDataMap} = getFilterData(nextProps.filterData,valueField,displayField)
 					this.setState({
-						// filterItems,
-						// filterDataMap,
+						filterItems,
+						filterDataMap,
 						filterData:nextProps.filterData,
 						checkedArray: diffValue ? [] : checkedArray,
 						savedShow: valueMap.refname
@@ -160,10 +158,10 @@ class RefCoreWithInput extends Component {
 		}else{
 			//filterUrl不存在，只传入filterData
 			if(!is(this.state.filterData,nextProps.filterData)&&!filterUrl){
-				// let {filterItems,filterDataMap} = getFilterData(nextProps.filterData,valueField,displayField,this.key)
+				let {filterItems,filterDataMap} = getFilterData(nextProps.filterData,valueField,displayField)
 				this.setState({
-					// filterItems,
-					// filterDataMap,
+					filterItems,
+					filterDataMap,
 					filterData:nextProps.filterData,
 				})
 			}
@@ -233,25 +231,14 @@ class RefCoreWithInput extends Component {
 	}
 
 	onClickFilterItem = (e) => {
-		let dataset =  {};
-		let { filterData } = this.state;
-		let { displayField = "{refname}", valueField, onSave } = this.props;
-		if(e.target){
-			e.stopPropagation();
-			dataset = e.target.dataset;
-			if ( dataset.type !== 'filteritem') {
-				return;
-			}
-		}else if(e.props){
-			//快捷键，自己拼装dataSet
-			dataset = e.props.dataset;
-			if ( dataset.type !== 'filteritem') {
-				return;
-			}
-			// dataset.value = filterData[this.key][valueField];
+		e.stopPropagation();
+		let { dataset = {} } = e.target;
+		if (dataset.type !== 'filteritem') {
+			return;
 		}
-		// let filterDataItem = filterDataMap[dataset.value];
-		let filterDataItem = filterData[dataset.rowindex]
+		let { filterDataMap } = this.state;
+		let { displayField = "{refname}", valueField, onSave } = this.props;
+		let filterDataItem = filterDataMap[dataset.value];
 		let savedData = filterDataItem[valueField];
 		//displayField 存在两种形态，通过字符匹配和函数匹配来获得展示的字段
 		let savedShow = '';
@@ -261,12 +248,11 @@ class RefCoreWithInput extends Component {
 			savedShow = displayField.format(filterDataItem);
 		}
 		this.setState({
-			savedData, 
-			savedShow,
+			savedData, savedShow,
 			filtering: false,
-			checkedArray: [filterData[dataset.rowindex]]
+			checkedArray: [filterDataMap[dataset.value]]
 		}, () => {
-			this.key = 0;
+
 			this.handleChange(JSON.stringify({
 				refname: savedShow,
 				refpk: dataset.value
@@ -288,11 +274,10 @@ class RefCoreWithInput extends Component {
 			content: content
 		}).then((response) => {
 			let { data } = response;
-			// let {filterItems,filterDataMap} = getFilterData(data,valueField,displayField,this.key);
+			let {filterItems,filterDataMap} = getFilterData(data,valueField,displayField);
 			this.setState({
-				// filterItems,
-				// filterDataMap,
-				filterData:data,
+				filterItems,
+				filterDataMap
 			});
 		})
 	}
@@ -325,39 +310,10 @@ class RefCoreWithInput extends Component {
 	onMatchInitValue = (checkedArray) => {
 		this.setState({checkedArray})
 	}
-	
-	selectOnchange = (value,e) =>{
-		console.log('122',e,value)
-		this.onClickFilterItem(e);
-	}
-	renderFilterItems = () =>{
-		const {filterData}  = this.state
-		const {valueField,displayField} = this.props;
-		let children = [];
-		if(filterData.length){
-			filterData.forEach((item,index) => {
-				let values = item[valueField];
-				//displayField 存在两种形态，通过字符匹配和函数匹配来获得展示的字段
-				let names = '';
-				if (typeof displayField === 'function') {
-					names = displayField(item);
-				} else {
-					names = displayField.format(item);
-				}
-				children.push(
-				<Option value={values} dataset={{value:values,type:'filteritem',rowindex:index}}>
-						{names}
-				</Option>
-				)
-			});
-			return children;
-		}
-		
-	}
 	render() {
-	var { savedShow, filterData, filtering, filterText, checkedArray, showModal} = this.state;
-	const { displayField, valueField, wrapClassName, disabled, style, 
-		placeholder,theme='ref-red',notFoundContent='没有匹配到数据',clearBut=false } = this.props;
+		var { savedShow, savedData, filterItems, filtering, filterText, checkedArray, showModal} = this.state;
+    const { displayField, valueField, form, rules, className, wrapClassName, 
+      disabled, style, placeholder,theme='ref-red' } = this.props;
     let {menuIcon=<span className={`uf uf-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}> </span>} = this.props;
 		let childrenProps = Object.assign(Object.assign({}, this.props), {
 			showModal: showModal ,
@@ -368,7 +324,7 @@ class RefCoreWithInput extends Component {
 		});
 		delete childrenProps.children;
 		return (
-			<div className={`ref-input-wrap ref-core-with-inupt ${wrapClassName} ${theme}`}
+			<div className={`ref-input-wrap ${wrapClassName} ${theme}`}
 				style={{
 					...style
 				}}
@@ -387,19 +343,15 @@ class RefCoreWithInput extends Component {
 							...savedShow ? {readOnly: "readonly"} : ''
 						}
 						placeholder={placeholder}
-						value={filtering ? '' : savedShow}
+						value={filtering ? filterText : savedShow}
 						onFocus={this.onFocusFormControl}
 						onChange={this.onChangeFormControl}
 						onBlur={this.onBlurFormControl}
-						ref={ref=>this.inputRef = ref}
 					/>
-					{
-						checkedArray.length && clearBut? (
-							<InputGroup.Button className='clear-icon' shape="border" onClick={()=>this.onSaveModal([])}>
-								<span className={`uf uf-close-c ${disabled ? 'ref-input-wrap-display' : ''}`}> </span>
-							</InputGroup.Button>
-						):''
-					}
+					{/* <InputGroup.Button shape="border" 
+						className={`ref-input-wrap-icon-navmenu ${disabled ? 'ref-input-wrap-display' : ''}`}
+					onClick={this.handleClick}>
+					</InputGroup.Button> */}
 					<InputGroup.Button shape="border" onClick={this.handleClick}>
 						{menuIcon}
 					</InputGroup.Button>
@@ -407,21 +359,19 @@ class RefCoreWithInput extends Component {
 				{
 					React.cloneElement(this.childrenComponent,childrenProps)
 				}
-				<Select
-					className="fake-select"
-					showSearch
-					filterOption={()=>{return true}}
-					onSearch={this.onChangeFormControl}
-					onSelect={this.selectOnchange}
-					onFocus={this.onFocusFormControl}
-					value={null}
-					disabled={!!checkedArray.length || !!savedShow}
-					notFoundContent={notFoundContent}
-				>
-					{
-						this.renderFilterItems()
-					}
-				</Select>
+				<div className="ref-input-wrap-filter-panel" style={{ display: filtering ? '' : 'none', width: style.width || 200 }}>
+					<ul
+						onClick={this.onClickFilterItem}
+						onMouseEnter={this.onFilterMouseEnter}
+						onMouseLeave={this.onFilterMouseLeave}
+					>
+						{
+							filterItems.length ? filterItems.map(item => {
+								return item
+							}) : <li className="ref-filter-empty">没有匹配到数据</li>
+						}
+					</ul>
+				</div>
 			</div>
 		);
 	}
