@@ -20,7 +20,7 @@ import '../../css/refcorebutton.css'
 //   language: 'zh_CN'
 // }
 function RefCoreButton(props) {
-	const { buttons, language, onClickBtn, emptyBut = true } = props;
+	const { buttons, language, onClickBtn, emptyBut = true ,footerBtnDom=''} = props;
 	let saveButton = '';
 	let cancelButton = '';
 	let clearButton = '';
@@ -66,6 +66,9 @@ function RefCoreButton(props) {
 		<div className="ref-core-button">
 			{
 				emptyBut ? <Button className='ref-core-button-empty'shape="border"  onClick={()=> onClickBtn('clear')}>{clearButton}</Button> : ''
+			}
+			{
+				!!footerBtnDom ? <div className='ref-core-customed-button'>{React.cloneElement(footerBtnDom)}</div>:null
 			}
 			<Button shape="border" onClick={() => onClickBtn('cancel')}>
 				{cancelButton}

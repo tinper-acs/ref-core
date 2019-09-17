@@ -21,3 +21,6 @@
 .ref-core-button-save {
     margin-right: 10px;
 }
+.ref-core-button .ref-core-customed-button{
+    display: inline-block;
+}
