@@ -1,3 +1,6 @@
+.hide{
+    display: none;
+}
 .ref-input-wrap{
     display: inline-block;
     vertical-align: middle;
@@ -72,15 +75,15 @@
 .ref-input-wrap .u-input-group.simple span.clear-icon.u-input-group-btn {
     cursor: pointer;
     right: 28px;
-    opacity: 0;
-    visibility: hidden;
+    /* opacity: 0;
+    visibility: hidden; */
     transition: opacity ease 0.3s;
 
 }
-.ref-input-wrap .u-input-group.simple:hover span.clear-icon.u-input-group-btn{
+/* .ref-input-wrap .u-input-group.simple:hover span.clear-icon.u-input-group-btn{
     opacity: 1;
     visibility: visible;
-}
+} */
 /*多选的*/
 .ref-input-wrap .rc-tree-select-selection--multiple .rc-tree-select-selection__clear{
     right:24px;
