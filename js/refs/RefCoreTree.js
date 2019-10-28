@@ -106,7 +106,7 @@ export default class RefCoreTree extends Component {
 						title={title} 
 						// title={<div className="ref-core-tree-node-text">{text}{ checkable ? '' : <i className="ref-core-tree-node-selected" />}</div>} 
 						attr={item} 
-						disabled={!!item[this.props.treeNodeDisabledKey]} 
+						disabled={!!this.props.treeNodeDisabledFunc?this.props.treeNodeDisabledFunc(item):!!item[this.props.treeNodeDisabledKey]}
 						{...isLeafAttr}
 						>
 						{this.loop(item.children,nodeKeys,displayField,isDisplayFieldFunction,isLazyModal,searchValue)}
@@ -117,7 +117,7 @@ export default class RefCoreTree extends Component {
 					className="ref-core-tree-node"
 					key={key} 
 					title={title} 
-					disabled={!!item[this.props.treeNodeDisabledKey]} 
+					disabled={!!this.props.treeNodeDisabledFunc?this.props.treeNodeDisabledFunc(item):!!item[this.props.treeNodeDisabledKey]}
 					attr={item} 
 					{...isLeafAttr}
 				/>;
