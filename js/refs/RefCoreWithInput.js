@@ -348,7 +348,7 @@ class RefCoreWithInput extends Component {
 						onChange={this.onChangeFormControl}
 						onBlur={this.onBlurFormControl}
 					/>
-					<InputGroup.Button className='clear-icon' shape='border' onClick={()=>this.onSaveModal([])}>
+					<InputGroup.Button className={`clear-icon ${(disabled || !checkedArray.length || !clearBut)?'hide':''}`} shape='border' onClick={()=>this.onSaveModal([])}>
 						<span className={`uf uf-close-c ${(disabled || !checkedArray.length || !clearBut)?'hide':''}`}></span>
 					</InputGroup.Button>
 					<InputGroup.Button shape="border" onClick={this.handleClick}>

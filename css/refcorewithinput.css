@@ -80,6 +80,7 @@
     transition: opacity ease 0.3s;
 
 }
+.clear-icon.u-input-group-btn.hide { display: none; }
 /* .ref-input-wrap .u-input-group.simple:hover span.clear-icon.u-input-group-btn{
     opacity: 1;
     visibility: visible;
