@@ -105,7 +105,10 @@
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "start": "npm run dev",
     "babel": "rimraf lib && babel js -d lib",
-    "build": "gulp"
+    "build": "gulp",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "postversion": "git push --follow-tags",
+    "prepublishOnly": "npm run build"
   },
   "license": "ISC"
 }
