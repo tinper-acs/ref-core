@@ -1,6 +1,6 @@
 {
   "name": "ref-core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "参照基础包（@tinper/next-ui版本）",
   "main": "lib/",
   "directories": {

@@ -16,7 +16,7 @@ export function paginationLocale(lang){
     break;
     case "en_us":
     return {
-        'lang':'en',
+        'lang':'en-us',
         'total': 'Total',
         'items': 'Items',
         'show': 'page',
