@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import FormControl from 'bee-form-control';
-import InputGroup from 'bee-input-group';
-// import 'bee-form-control/build/FormControl.css'
-// import 'bee-input-group/build/InputGroup.css'
-// import {FormControl,InputGroup} from 'tinper-bee';
+import { Input as FormControl, InputGroup } from '@tinper/next-ui';
 import '../../css/refcoresearch.css'
+
 class RefCoreSearch extends Component {
 	constructor(props) {
 		super(props);
@@ -52,28 +49,23 @@ class RefCoreSearch extends Component {
 					placeholder = '搜索'
 			}
 		}
-		
 		return (
-			<InputGroup simple
+			<InputGroup
+				simple
 				className={`ref-core-search ${className} ${ show ? '' : 'ref-core-search-hide'}`}
 			>
 				<FormControl
 					className="ref-core-search-input"
 					value={this.state.value}
 					onChange={this.onChange}
-					onKeyPress={this.keypress}
+					onPressEnter={this.keypress}
 					placeholder={placeholder}
 					type="text"
 				/>
-				{/* <InputGroup.Button shape="border" 
-					className="ref-core-search-icon-search"
-					onClick={this.onSearch.bind(this)}>
-				</InputGroup.Button> */}
 				<InputGroup.Button shape="border" onClick={this.onSearch.bind(this)}>
-						<span className="uf uf-search"> </span>
+					<span className="uf uf-search"> </span>
 			    </InputGroup.Button>
 			</InputGroup>
-
 		);
 	}
 }

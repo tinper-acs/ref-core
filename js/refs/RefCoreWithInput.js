@@ -8,7 +8,7 @@ import { post, get } from '../utils/request'
 import { is } from 'immutable';
 import '../../css/refcorewithinput.css';
 import '../utils/polyfill_shim.js'
-import Select from 'menu-selector';
+import Select from 'menu-selector-tinper-next';
 
 const refValParse = (value) => {
   if(!value) return {refname: '', refpk: ''};
@@ -292,7 +292,6 @@ class RefCoreWithInput extends Component {
       onMatchInitValue: this.onMatchInitValue
     });
     delete childrenProps.children;
-
     return (
       <div className={`ref-input-wrap ${wrapClassName} ${theme}`}
         style={{

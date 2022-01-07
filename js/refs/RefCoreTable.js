@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Table  from 'bee-table';
-import Checkbox from 'bee-checkbox';
-import Pagination from 'bee-pagination';
-// import 'bee-table/build/Table.css'
-// import 'bee-checkbox/build/Checkbox.css'
-// import 'bee-pagination/build/Pagination.css'
-// import {Table,Checkbox,Pagination} from 'tinper-bee';
+import { Table, Checkbox, Pagination } from "@tinper/next-ui"
 import '../../css/refcoretable.css'
 class RefCoreTable extends Component {
   //选择列表参数
   static defaultProps = {
-    prefixCls: "bee-table",
+    prefixCls: "wui-table",
     multiSelect: {
       type: "checkbox",
       param: "key",
@@ -271,8 +265,8 @@ class RefCoreTable extends Component {
                   items={this.props.pageCount}
                   size='sm'
                   maxButtons={5}
-                  activePage={this.props.curPage+1}
-                  onSelect={this.handleSelect.bind(this)} 
+                  current={this.props.curPage+1}
+                  onChange={this.handleSelect.bind(this)}
                   />
             </div>
         }
