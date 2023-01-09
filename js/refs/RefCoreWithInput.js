@@ -3,6 +3,7 @@
  * @LastEditTime: 2019-08-15 20:04:41
  */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { post, get } from '../utils/request'
 import { is } from 'immutable';
@@ -100,10 +101,11 @@ class RefCoreWithInput extends Component {
     };
     this.childrenComponent = this.props.children;
     this.init = true;
+    this.selectRef = null;
   }
 
   componentDidMount() {
-    
+    this.setFieldid()
   }
   //checkedArray与matchData不一致的时刻：1.初始化matchData但是checkedArray是在保存之后才与matchData同步
   // componentWillReceiveProps，checkedArray：为[],为value
@@ -138,7 +140,32 @@ class RefCoreWithInput extends Component {
       })
 			return false;
 		}
+
+    if (nextProps.fieldid !== this.props.fieldid) {
+      this.setFieldid()
+    }
 		return true;
+  }
+
+  setFieldid = () => {
+    try {
+      const {fieldid} = this.props;
+      const selectDom = ReactDOM.findDOMNode(this.selectRef);
+      if(selectDom && fieldid) {
+        selectDom.setAttribute('fieldid', `${fieldid}_ref_core_with_input`);
+        const iconDom = selectDom.querySelector('.rc-tree-select-selection-menu-icon');
+        const clearDom = selectDom.querySelector('.rc-tree-select-selection-choice-clear-icon');
+        if (iconDom) {
+          iconDom.setAttribute('fieldid', `${fieldid}_ref_core_with_input_modal_icon`);
+        }
+        if (clearDom) {
+          clearDom.setAttribute('fieldid', `${fieldid}_ref_core_with_input_clear_icon`);
+        }
+      }
+
+    } catch(e) {
+
+    }
   }
   
 
@@ -273,7 +300,7 @@ class RefCoreWithInput extends Component {
     const { displayField, valueField, className, 
        wrapClassName, disabled, style,searchValue,
        placeholder, theme = 'ref-red',multiple,inputDisplay=`{refname}`,
-       showMenuIcon=true,showArrow=false,selectorOpen,menuIcon,dropdownDisabled=false,
+       showMenuIcon=true,showArrow=false,selectorOpen,menuIcon,dropdownDisabled=false,fieldid,
     } = this.props;
     let selectorHasOpen = {}
     let otherProps = {};
@@ -292,6 +319,7 @@ class RefCoreWithInput extends Component {
       onMatchInitValue: this.onMatchInitValue
     });
     delete childrenProps.children;
+    this.setFieldid();
     return (
       <div className={`ref-input-wrap ${wrapClassName} ${theme}`}
         style={{
@@ -323,6 +351,8 @@ class RefCoreWithInput extends Component {
             showMenuIcon={showMenuIcon}
             showArrow={showArrow}
             dropdownDisabled={dropdownDisabled}
+            fieldid={fieldid ? `${fieldid}_ref_core_with_input` : undefined}
+            ref={ref => this.selectRef = ref}
             {...selectorHasOpen} //有可能是{}或者用户传入open
             {...otherProps}
           >

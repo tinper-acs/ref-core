@@ -187,6 +187,7 @@ class RefCoreTable extends Component {
     var tabActiveKey = this.props.tabActiveKey;
     var language = this.props.language;
     var len = listData.length;
+    const {fieldid} = this.props;
     let nodata = "没有查询到数据"
     switch(language)
           {
@@ -255,6 +256,7 @@ class RefCoreTable extends Component {
             rowClassName={this.rowClassNameHandler}
             onRowClick={this.clickRowHandler}
             onRowDoubleClick={this.clickRowDoubleHandler}
+            fieldid={fieldid ? `${fieldid}_ref_core_table` : undefined}
             />
         </div>
         {
@@ -267,6 +269,7 @@ class RefCoreTable extends Component {
                   maxButtons={5}
                   current={this.props.curPage+1}
                   onChange={this.handleSelect.bind(this)}
+                  fieldid={fieldid ? `${fieldid}_ref_core_table_pagination` : undefined}
                   />
             </div>
         }

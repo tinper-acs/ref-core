@@ -27,6 +27,11 @@ class RefCoreSearch extends Component {
 			this.props.onSearch(this.state.value);
 		}
 	}
+	getFieldid = (str) => {
+		const {fieldid} = this.props
+		if (!fieldid) return;
+		return `${fieldid}_ref_core_search_${str}`
+	}
 	render() {
 		let { language = '', placeholder = '', className = '', show = true } = this.props
 		if(!placeholder){
@@ -53,6 +58,7 @@ class RefCoreSearch extends Component {
 			<InputGroup
 				simple
 				className={`ref-core-search ${className} ${ show ? '' : 'ref-core-search-hide'}`}
+				fieldid={this.getFieldid('group')}
 			>
 				<FormControl
 					className="ref-core-search-input"
@@ -61,9 +67,10 @@ class RefCoreSearch extends Component {
 					onPressEnter={this.keypress}
 					placeholder={placeholder}
 					type="text"
+					fieldid={this.getFieldid('input')}
 				/>
-				<InputGroup.Button shape="border" onClick={this.onSearch.bind(this)}>
-					<span className="uf uf-search"> </span>
+				<InputGroup.Button shape="border" onClick={this.onSearch.bind(this)} fieldid={this.getFieldid('btn')}>
+					<span className="uf uf-search" fieldid={this.getFieldid('btn_search')}> </span>
 			    </InputGroup.Button>
 			</InputGroup>
 		);
