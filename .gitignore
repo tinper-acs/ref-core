@@ -59,6 +59,7 @@ typings/
 
 .idea
 package-lock.json
+npm-shrinkwrap.json
 
 ghpages
 .DS_Store
