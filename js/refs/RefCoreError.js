@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 
 import '../../css/refcoreerror.css'
 const  RefCoreError = (props) => {
-  const { language, show } = props
+  const { language, show, nodataText } = props
     let nodata = "没有查询到数据"
     switch(language)
     {
         case "zh_CN":
         nodata = '没有查询到数据';
-        
         break;
         case "en_US":
         nodata = 'No query to data';
@@ -27,6 +26,9 @@ const  RefCoreError = (props) => {
         break;
         default:
         nodata = '没有查询到数据';
+    }
+    if (nodataText) {
+      nodata = nodataText
     }
     return (
       <div className={ show ? 'ref-core-error':'ref-core-error-hide'}>

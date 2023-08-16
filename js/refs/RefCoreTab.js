@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import '../../css/refcoretab.css';
 const propTypes = {
     show: PropTypes.bool,
+    chosenText: PropTypes.string,
+    hiddenChosenText: PropTypes.string,
     onSelectTabItem: PropTypes.func,
     selectedData: PropTypes.array,
     selecteing: PropTypes.bool
@@ -20,7 +22,7 @@ class RefCoreTab extends Component {
         this.Alreadychosen = '';
         this.Hidechosen = '';
 
-        const {language}= props;
+        const {language, chosenText, hiddenChosenText}= props;
         switch(language)
         {
             case "zh_CN":
@@ -50,6 +52,12 @@ class RefCoreTab extends Component {
             default:
                 this.Alreadychosen = '已选';
                 this.Hidechosen = "收起已选";
+        }
+        if (chosenText) {
+          this.Alreadychosen = chosenText
+        }
+        if (hiddenChosenText) {
+          this.Hidechosen = hiddenChosenText
         }
     }
     onSelectTabItem = () => {

@@ -22,7 +22,7 @@ class RefCoreTable extends Component {
   //   let self = this;
   //   refTable.addEventListener('scroll', self.props.onSendData(refTable), false);
   // }
-  
+
   componentDidMount(){
     var refTable = ReactDOM.findDOMNode(this.refTable).getElementsByClassName('u-table-body')[0];
     if(!this.props.hasPage && refTable){
@@ -119,7 +119,7 @@ class RefCoreTable extends Component {
       //   this.onClickBtn('save');
       // },100)
     }
-    
+
   }
   rowClassNameHandler = (record,index,indent) => {
     if (this.state.checkedArray[index]) {
@@ -187,13 +187,13 @@ class RefCoreTable extends Component {
     var tabActiveKey = this.props.tabActiveKey;
     var language = this.props.language;
     var len = listData.length;
-    const {fieldid} = this.props;
-    let nodata = "没有查询到数据"
+    const {fieldid, nodataText} = this.props;
+    let nodata = ''
     switch(language)
           {
               case "zh_CN":
 							nodata = '没有查询到数据'
-                
+
                   break;
               case "en_US":
               nodata = 'No query to data'
@@ -213,6 +213,9 @@ class RefCoreTable extends Component {
               default:
               nodata = '没有查询到数据'
           }
+    if (nodataText) {
+      nodata = nodataText
+    }
     var checkedArrayCreater = new Array(len).fill(false)
     function ifInSelected (v,selectedArray){
       let flag = false;
@@ -237,7 +240,7 @@ class RefCoreTable extends Component {
     }
     var ifAllSelected = checkedArrayCreater.indexOf(false)>-1
     this.state = {
-      checkedAll : !ifAllSelected && data.length!=0,//data.length == selectedArray.length 
+      checkedAll : !ifAllSelected && data.length!=0,//data.length == selectedArray.length
       checkedArray: checkedArrayCreater,
       data: data,
     };
@@ -251,8 +254,8 @@ class RefCoreTable extends Component {
       <div className='tableCon'>
         <div className='ref-core-table'>
           <Table {...option} ref={(el) => this.refTable = el }
-            columns={columns} 
-            data={this.state.data} 
+            columns={columns}
+            data={this.state.data}
             rowClassName={this.rowClassNameHandler}
             onRowClick={this.clickRowHandler}
             onRowDoubleClick={this.clickRowDoubleHandler}
